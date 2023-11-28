@@ -16,7 +16,8 @@
         "react-dom": "^16.8.0 || 17.x",
         "react-dropzone": "^14.2.3",
         "styled-components": "^6.0.8",
-        "vite-plugin-css-injected-by-js": "^3.3.0"
+        "vite-plugin-css-injected-by-js": "^3.3.0",
+        "vite-plugin-sass": "^0.1.0"
     },
     "devDependencies": {
         "@babel/core": "^7.16.12",
