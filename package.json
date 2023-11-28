@@ -1,0 +1,54 @@
+{
+    "name": "qc-comp-fr",
+    "version": "0.0.21",
+    "scripts": {
+        "dev": "vite",
+        "build": "del tsconfig.tsbuildinfo && rd /s /q dist && tsc && vite build && npm version patch && npm pub",
+        "preview": "vite preview"
+    },
+    "dependencies": {
+        "@quero-delivery/quero-components-web": "^2.1.2",
+        "@radix-ui/themes": "^2.0.1",
+        "antd": "^5.11.5",
+        "browser-image-compression": "^2.0.2",
+        "query-string": "^8.1.0",
+        "react": "^16.8.0 || 17.x",
+        "react-dom": "^16.8.0 || 17.x",
+        "react-dropzone": "^14.2.3",
+        "styled-components": "^6.0.8"
+    },
+    "devDependencies": {
+        "@babel/core": "^7.16.12",
+        "@types/node": "^17.0.12",
+        "@types/react": "^17.0.38",
+        "@types/react-dom": "^18.2.17",
+        "@types/styled-components": "^5.1.21",
+        "@vitejs/plugin-react": "^1.1.4",
+        "acorn-jsx": "^5.3.2",
+        "babel-loader": "^8.2.3",
+        "typescript": "^4.5.5",
+        "vite": "^2.7.13",
+        "vite-plugin-dts": "^0.9.9"
+    },
+    "license": "UNLICENSED",
+    "peerDependencies": {
+        "antd": "^5.11.5",
+        "react": "^16.8.0 || 17.x",
+        "react-dom": "^16.8.0 || 17.x",
+        "styled-components": "^6.0.8"
+    },
+    "files": [
+        "dist"
+    ],
+    "type": "module",
+    "main": "./dist/qc-comp-fr.umd.js",
+    "module": "./dist/qc-comp-fr.es.js",
+    "types": "./dist/index.d.ts",
+    "exports": {
+        ".": {
+            "types": "./dist/index.d.ts",
+            "import": "./dist/qc-comp-fr.es.js",
+            "require": "./dist/qc-comp-fr.umd.js"
+        }
+    }
+}

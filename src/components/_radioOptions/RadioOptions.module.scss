@@ -1,0 +1,13 @@
+@import "../../vars.scss";
+
+.radio-options{
+    .area-1{
+        display: flex;
+        gap: 1rem !important;
+        flex-wrap: wrap;
+        
+        .item{
+            display: flex;
+        }
+    }
+}

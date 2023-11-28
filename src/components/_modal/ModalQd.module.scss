@@ -1,0 +1,141 @@
+@import "../../../src/vars.scss";
+
+#background {
+   position: fixed;
+   top: 0;
+   bottom: 0;
+   width: 100%;
+   left: 0;
+   height: auto;
+   background-color: rgba(0, 0, 0, 0.3);
+   backdrop-filter: blur(3px);
+   z-index: 99999;
+   padding: 1rem;
+   display: flex;
+   justify-content: center;
+   align-items: center;
+
+   .background-area-click{
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      cursor: pointer;
+   }
+   
+   .content-box {
+      overflow-y: hidden;
+      overflow-x: hidden;
+      max-height: 99%;
+      border-radius: 2rem !important;
+      border: inset;
+      background-color: $off-white;
+
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+
+      &::-webkit-scrollbar {
+         width: 7px;
+      }
+
+      &::-webkit-scrollbar-track {
+         border-radius: 1rem;
+         margin-top: 2rem;
+         margin-bottom: 2rem;
+      }
+
+      &::-webkit-scrollbar-thumb {
+         background: #888; 
+      }
+
+      @media only screen and (max-width: 1020px) {
+         margin: 0.5rem !important;
+      }
+   
+      .header {
+         top: 0;
+
+
+         background-color: rgba(255, 255, 255, 0.786);
+         backdrop-filter: blur(3px);
+         width: 100%;
+         border-bottom: 1px solid #e1e1e1;
+         padding: 1.5rem;
+         padding-right: 2rem;
+         display: flex;
+         align-items: center;
+         justify-content: space-between;
+         z-index: 1;
+         border-top-right-radius: 2rem !important;
+         border-top-left-radius: 2rem !important;
+      }
+   
+      .body {
+         position: relative;
+         height: max-content;
+
+
+         background-color: $partners-base-color-white;
+         width: 100%;
+         padding: 1rem;
+         overflow-y: auto;
+         overflow-x: hidden;
+         /* max-height: 40rem; */
+   
+         @media only screen and (max-width: 1020px) {
+            padding: 0.5rem;
+         }
+      }
+   
+      .nav {
+         bottom: 0;
+
+
+         background-color: rgba(255, 255, 255, 0.786);
+         backdrop-filter: blur(3px);
+         width: 100%;
+         padding: 1rem;
+         display: flex;
+         align-items: center;
+         justify-content: flex-end;
+         flex-direction: row;
+         flex-wrap: wrap;
+         gap: 0.5rem;
+         border-top: 1px solid #e1e1e1;
+         z-index: 1;
+
+         border-radius: 2rem !important;
+   
+         @media only screen and (max-width: 1020px) {
+            flex-direction: column-reverse;
+   
+            button {
+               width: 100% !important;
+            }
+         }
+      }
+   
+   }
+   
+}
+
+/* div[role=dialog]{
+    background-color: aqua;
+    overflow: unset;
+    max-height: none;
+    position: relative;
+} */
+
+div[data-gray-color="slate"][data-is-root-theme="false"][data-has-background="false"] {
+   padding: 1rem;
+
+   @media only screen and (max-width: 1020px) {
+      padding: 0;
+   }
+}
+
+.overflow-hidden {
+   overflow: hidden;
+}

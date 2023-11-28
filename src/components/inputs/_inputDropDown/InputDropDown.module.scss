@@ -1,0 +1,195 @@
+@import "../../../../src/vars.scss";
+
+.dropdown-qd {
+   position: relative;
+   text-overflow: ellipsis;
+   display: flex;
+   align-items: flex-start;
+   flex-direction: column;
+   justify-content: flex-start;
+   flex-grow: 1 !important;
+
+   label {
+      color: $partners-neutral-color-600;
+      font-feature-settings:
+         "clig" off,
+         "liga" off;
+      font-family: Montserrat;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 24px;
+      letter-spacing: 0.15px;
+   }
+
+   div.dropdown-area {
+      display: flex;
+      align-items: center;
+      width: 100%;
+
+      input {
+         border-radius: 10px;
+         border: 1px solid $partners-neutral-color-400;
+         background-color: $partners-base-color-white;
+         height: 3rem;
+         width: 100%;
+         outline: 0;
+         color: $partners-neutral-color-600;
+         font-feature-settings:
+            "clig" off,
+            "liga" off;
+         font-family: Montserrat;
+         font-size: 14px;
+         font-style: normal;
+         font-weight: 500;
+         line-height: 20px;
+         letter-spacing: 0.25px;
+         text-overflow: ellipsis;
+         padding-right: 3rem;
+         padding-left: 1rem;
+
+         &.focus {
+            border-radius: 0;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+         }
+
+         &.no-focus {
+            border-radius: 10px;
+         }
+
+         &::placeholder {
+            color: $partners-neutral-color-400;
+            font-feature-settings:
+               "clig" off,
+               "liga" off;
+            font-family: Montserrat;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: 20px;
+            letter-spacing: 0.25px;
+         }
+      }
+
+      .area-images {
+         position: absolute;
+         right: 1rem;
+         display: flex;
+         align-items: center;
+         pointer-events: none;
+
+         img#arrow-info {
+            pointer-events: none;
+            cursor: unset;
+            &.up {
+               transform: rotate(180deg);
+            }
+
+            &.down {
+               transform: rotate(0deg);
+            }
+         }
+
+         img.remove-text {
+            pointer-events: all;
+         }
+      }
+
+      .area-icon {
+         position: absolute;
+         left: 1rem;
+         display: flex;
+         align-items: center;
+         pointer-events: none;
+
+         img.icon {
+            width: 1.2rem;
+            pointer-events: all;
+         }
+      }
+
+      img.remove-text {
+         position: absolute;
+         right: 1rem;
+         width: 1.4rem;
+         height: 1.4rem;
+         background-color: #dedede38;
+         padding: 0.2rem;
+         border-radius: 0.5rem;
+         backdrop-filter: blur(1px);
+         cursor: pointer;
+      }
+   }
+
+   img.required {
+      position: absolute;
+      bottom: 11px;
+      right: 16px;
+      width: 1.4rem;
+      height: 1.4rem;
+      background-color: #dedede38;
+      padding: 0.2rem;
+      border-radius: 0.5rem;
+      backdrop-filter: blur(1px);
+   }
+}
+
+body{
+   .area-options {
+      background-color: $partners-base-color-white;
+      border: 1px solid #707070;
+      border-bottom-right-radius: 16px;
+      border-bottom-left-radius: 16px;
+      border-top: 0;
+      width: inherit;
+      max-height: 10rem;
+      position: fixed !important;
+      overflow-y: auto;
+      transition: 0.1;
+      z-index: 9999999999 !important;
+      margin-top: 0;
+
+      div.item:focus {
+         outline: 0px solid black;
+         border-top: 1px solid $partners-brand-color-primary-400;
+         border-bottom: 1px solid $partners-brand-color-primary-400;
+         border-radius: 0.5rem;
+         background-color: $partners-brand-color-primary-800;
+         margin: 0.2rem;
+      }
+
+      div.item {
+         color: $partners-neutral-color-600;
+         font-feature-settings:
+            "clig" off,
+            "liga" off;
+         font-family: Montserrat;
+         font-size: 15px;
+         font-style: normal;
+         font-weight: 600;
+         line-height: 24px;
+         letter-spacing: 0.15px;
+
+         padding: 0.2rem;
+         padding-left: 0.4rem;
+         padding-right: 0.4rem;
+         pointer-events: all;
+         cursor: pointer;
+         /* border-bottom: 1px solid $partners-neutral-color-400; */
+         word-break: break-all;
+         display: flex;
+         align-items: center;
+
+         img{
+            width: 1.2rem;
+            height: 1.2rem;
+            margin-right: 0.5rem;
+         }
+
+         &:hover {
+            background-color: rgb(245, 245, 245);
+         }
+      }
+   }
+}

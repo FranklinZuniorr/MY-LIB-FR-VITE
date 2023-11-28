@@ -1,0 +1,32 @@
+@import "../../vars.scss";
+
+.checkbox-options{
+    .area-1{
+        display: flex;
+        gap: 1rem !important;
+        flex-wrap: wrap;
+
+    .area-elements{
+        display: flex;
+        align-items: center;
+
+        img{
+            width: 3.5rem;
+            margin-right: 1rem;
+        }
+
+        #item{
+            display: flex;
+    
+            &.row{
+                flex-direction: row;
+            }
+    
+            &.row-reverse{
+                flex-direction: row-reverse;
+            }
+        }
+    }
+        
+    }
+}

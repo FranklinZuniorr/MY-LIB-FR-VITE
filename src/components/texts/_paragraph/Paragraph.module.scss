@@ -1,0 +1,14 @@
+@import "../../../../src/vars.scss";
+
+.paragraph {
+   color: $partners-neutral-color-700;
+   font-feature-settings:
+      "clig" off,
+      "liga" off;
+   font-family: Montserrat;
+   font-style: normal;
+   font-weight: 500;
+   line-height: 24px;
+   letter-spacing: 0.5px;
+   display: flex;
+}
