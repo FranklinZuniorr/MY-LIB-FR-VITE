@@ -3,7 +3,7 @@
     "version": "0.0.21",
     "scripts": {
         "dev": "vite",
-        "build": "del tsconfig.tsbuildinfo && rd /s /q dist && tsc && vite build && npm version patch && npm pub",
+        "build": "tsc && vite build && npm version patch && npm pub",
         "preview": "vite preview"
     },
     "dependencies": {
@@ -15,7 +15,8 @@
         "react": "^16.8.0 || 17.x",
         "react-dom": "^16.8.0 || 17.x",
         "react-dropzone": "^14.2.3",
-        "styled-components": "^6.0.8"
+        "styled-components": "^6.0.8",
+        "vite-plugin-css-injected-by-js": "^3.3.0"
     },
     "devDependencies": {
         "@babel/core": "^7.16.12",
