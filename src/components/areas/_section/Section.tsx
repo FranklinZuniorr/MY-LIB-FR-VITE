@@ -1,5 +1,4 @@
-import styles from "./Section.module.scss";
-
+import styled from "styled-components";
 interface IBorder {
    color: string,
    size: number,
@@ -21,6 +20,10 @@ interface ISectionProps {
    border?: IBorder
 }
 
+const Div = styled.div`
+   background: $partners-base-color-white;
+`;
+
 const Section: React.FC<ISectionProps> = ({
    children,
    marginBottom = 2,
@@ -37,8 +40,7 @@ const Section: React.FC<ISectionProps> = ({
 }) => {
    return (
       <>
-         <div
-            className={styles["section-new"]}
+         <Div
             style={{
                marginTop: `${marginTop}rem`,
                marginRight: `${marginRight}rem`,
@@ -54,7 +56,7 @@ const Section: React.FC<ISectionProps> = ({
             }}
          >
             {children}
-         </div>
+         </Div>
       </>
    );
 };

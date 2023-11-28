@@ -1,7 +1,19 @@
 import { jsx as _jsx, Fragment as _Fragment } from "react/jsx-runtime";
-import styles from "./Paragraph.module.scss";
+import styled from "styled-components";
+const Div = styled.div `
+   color: $partners-neutral-color-700;
+   font-feature-settings:
+   "clig" off,
+   "liga" off;
+   font-family: Montserrat;
+   font-style: normal;
+   font-weight: 500;
+   line-height: 24px;
+   letter-spacing: 0.5px;
+   display: flex;
+`;
 const Paragraph = ({ text, size = 20, marginBottom = 0, marginTop = 0, marginLeft = 0, marginRight = 0, isStrikethrough = false, horizontalAlign = "flex-start", opacity = 1 }) => {
-    return (_jsx(_Fragment, { children: _jsx("div", { className: styles.paragraph, style: {
+    return (_jsx(_Fragment, { children: _jsx(Div, { style: {
                 fontSize: `${size}px`,
                 marginTop: `${marginTop}rem`,
                 marginRight: `${marginRight}rem`,

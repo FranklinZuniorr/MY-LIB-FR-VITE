@@ -3,7 +3,7 @@
     "version": "0.0.21",
     "scripts": {
         "dev": "vite",
-        "build": "del tsconfig.tsbuildinfo && rd /s /q dist && tsc && vite build && npm version patch && npm pub",
+        "build": "tsc && vite build && npm version patch && npm pub",
         "preview": "vite preview"
     },
     "dependencies": {

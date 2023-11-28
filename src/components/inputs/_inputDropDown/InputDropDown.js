@@ -1,11 +1,204 @@
 import { jsx as _jsx, jsxs as _jsxs, Fragment as _Fragment } from "react/jsx-runtime";
 import { useState, useEffect } from "react";
-import styles from "./InputDropDown.module.scss";
 import LineBarGroupUnid from "../../areas/_lineBarGroupUnid/LineBarGroupUnid";
 import Title from "../../texts/_title/Title";
 import { createPortal } from "react-dom";
 import xmarkSolid from "../../../assets/images/icons/xmark-solid-purple.svg";
 import chevronBottom from "../../../assets/images/icons/chevron-bottom.svg";
+import styled from "styled-components";
+const Div = styled.div `
+   position: relative;
+   text-overflow: ellipsis;
+   display: flex;
+   align-items: flex-start;
+   flex-direction: column;
+   justify-content: flex-start;
+   flex-grow: 1 !important;
+
+   label {
+      color: $partners-neutral-color-600;
+      font-feature-settings:
+         "clig" off,
+         "liga" off;
+      font-family: Montserrat;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 24px;
+      letter-spacing: 0.15px;
+   }
+
+   div.dropdown-area {
+      display: flex;
+      align-items: center;
+      width: 100%;
+
+      input {
+         border-radius: 10px;
+         border: 1px solid $partners-neutral-color-400;
+         background-color: $partners-base-color-white;
+         height: 3rem;
+         width: 100%;
+         outline: 0;
+         color: $partners-neutral-color-600;
+         font-feature-settings:
+            "clig" off,
+            "liga" off;
+         font-family: Montserrat;
+         font-size: 14px;
+         font-style: normal;
+         font-weight: 500;
+         line-height: 20px;
+         letter-spacing: 0.25px;
+         text-overflow: ellipsis;
+         padding-right: 3rem;
+         padding-left: 1rem;
+
+         &.focus {
+            border-radius: 0;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+         }
+
+         &.no-focus {
+            border-radius: 10px;
+         }
+
+         &::placeholder {
+            color: $partners-neutral-color-400;
+            font-feature-settings:
+               "clig" off,
+               "liga" off;
+            font-family: Montserrat;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: 20px;
+            letter-spacing: 0.25px;
+         }
+      }
+
+      .area-images {
+         position: absolute;
+         right: 1rem;
+         display: flex;
+         align-items: center;
+         pointer-events: none;
+
+         img#arrow-info {
+            pointer-events: none;
+            cursor: unset;
+            &.up {
+               transform: rotate(180deg);
+            }
+
+            &.down {
+               transform: rotate(0deg);
+            }
+         }
+
+         img.remove-text {
+            pointer-events: all;
+         }
+      }
+
+      .area-icon {
+         position: absolute;
+         left: 1rem;
+         display: flex;
+         align-items: center;
+         pointer-events: none;
+
+         img.icon {
+            width: 1.2rem;
+            pointer-events: all;
+         }
+      }
+
+      img.remove-text {
+         position: absolute;
+         right: 1rem;
+         width: 1.4rem;
+         height: 1.4rem;
+         background-color: #dedede38;
+         padding: 0.2rem;
+         border-radius: 0.5rem;
+         backdrop-filter: blur(1px);
+         cursor: pointer;
+      }
+   }
+
+   img.required {
+      position: absolute;
+      bottom: 11px;
+      right: 16px;
+      width: 1.4rem;
+      height: 1.4rem;
+      background-color: #dedede38;
+      padding: 0.2rem;
+      border-radius: 0.5rem;
+      backdrop-filter: blur(1px);
+   }
+}
+
+body{
+   .area-options {
+      background-color: $partners-base-color-white;
+      border: 1px solid #707070;
+      border-bottom-right-radius: 16px;
+      border-bottom-left-radius: 16px;
+      border-top: 0;
+      width: inherit;
+      max-height: 10rem;
+      position: fixed !important;
+      overflow-y: auto;
+      transition: 0.1;
+      z-index: 9999999999 !important;
+      margin-top: 0;
+
+      div.item:focus {
+         outline: 0px solid black;
+         border-top: 1px solid $partners-brand-color-primary-400;
+         border-bottom: 1px solid $partners-brand-color-primary-400;
+         border-radius: 0.5rem;
+         background-color: $partners-brand-color-primary-800;
+         margin: 0.2rem;
+      }
+
+      div.item {
+         color: $partners-neutral-color-600;
+         font-feature-settings:
+            "clig" off,
+            "liga" off;
+         font-family: Montserrat;
+         font-size: 15px;
+         font-style: normal;
+         font-weight: 600;
+         line-height: 24px;
+         letter-spacing: 0.15px;
+
+         padding: 0.2rem;
+         padding-left: 0.4rem;
+         padding-right: 0.4rem;
+         pointer-events: all;
+         cursor: pointer;
+         /* border-bottom: 1px solid $partners-neutral-color-400; */
+         word-break: break-all;
+         display: flex;
+         align-items: center;
+
+         img{
+            width: 1.2rem;
+            height: 1.2rem;
+            margin-right: 0.5rem;
+         }
+
+         &:hover {
+            background-color: rgb(245, 245, 245);
+         }
+      }
+   }
+`;
 const InputDropdown = ({ marginTop = 1, marginBottom = 1, marginLeft = 0, marginRight = 0, placeholder = "", width = { size: 0, type: "rem", resizeAdjust: true }, defaultValue = "", value, onChange = () => null, onSearch = () => null, label = { value: "", requiredInput: false, color: "#707070" }, clearable = false, disabled = false, error = { isError: false, text: "Um texto vai aqui!" }, options = [], removeOptionsRepeated = false, searchable, icon, name = "" }) => {
     const [inputValue, setInputValue] = useState(defaultValue);
     const [isFocus, setIsFocus] = useState(false);
@@ -15,7 +208,7 @@ const InputDropdown = ({ marginTop = 1, marginBottom = 1, marginLeft = 0, margin
     const [optionSelectedIndex, setOptionSelectedIndex] = useState(-1);
     const [isOptionSelectedIndex, setIsOptionSelectedIndex] = useState(false);
     const [eventTarget, setEventTarget] = useState();
-    const input = document.getElementsByClassName(styles["dropdown-area"])[0];
+    const input = document.getElementsByClassName("dropdown-area")[0];
     const fixPositionAreaOptions = (event) => {
         const target = event.target;
         if (options.length > 0) {
@@ -24,7 +217,7 @@ const InputDropdown = ({ marginTop = 1, marginBottom = 1, marginLeft = 0, margin
             const targetX = target.getBoundingClientRect().x;
             const targetWidth = target.getBoundingClientRect().width;
             setTimeout(() => {
-                const areaOptions = document.getElementsByClassName(styles["area-options"])[0];
+                const areaOptions = document.getElementsByClassName("area-options")[0];
                 if (areaOptions) {
                     areaOptions.style.opacity = "1";
                     areaOptions.style.zIndex = "99999999999";
@@ -153,16 +346,16 @@ const InputDropdown = ({ marginTop = 1, marginBottom = 1, marginLeft = 0, margin
         onChange({ data: optionsNew[newValue] });
         setOptionSelectedIndex(optionSelectedIndex - 1);
     };
-    return (_jsx(_Fragment, { children: _jsxs("div", { style: {
+    return (_jsx(_Fragment, { children: _jsxs(Div, { style: {
                 marginTop: `${marginTop}rem`,
                 marginBottom: `${marginBottom}rem`,
                 marginLeft: `${marginLeft}rem`,
                 marginRight: `${marginRight}rem`,
                 [width.resizeAdjust ? "maxWidth" : "width"]: width.size === 0 ? "100%" : `${width.size}${width.type}`,
                 opacity: disabled ? "0.5" : "1",
-            }, className: styles["dropdown-qd"], children: [label.value !== "" && (_jsxs("label", { style: {
+            }, children: [label.value !== "" && (_jsxs("label", { style: {
                         color: error.isError ? "#e0457b" : label.color,
-                    }, children: [label.value, label.requiredInput ? _jsx("span", { style: { color: "#e0457b" }, children: " *" }) : ""] })), _jsxs("div", { id: "dropdown-area-parent", className: styles["dropdown-area"], children: [_jsx("input", { name: name, autoComplete: "off", "data-testid": "input", id: styles["input-dropdown"], value: searchable ?
+                    }, children: [label.value, label.requiredInput ? _jsx("span", { style: { color: "#e0457b" }, children: " *" }) : ""] })), _jsxs("div", { id: "dropdown-area-parent", className: "dropdown-area", children: [_jsx("input", { name: name, autoComplete: "off", "data-testid": "input", id: "input-dropdown", value: searchable ?
                                 options.find(item => {
                                     if (item.value === search) {
                                         return item;
@@ -206,7 +399,7 @@ const InputDropdown = ({ marginTop = 1, marginBottom = 1, marginLeft = 0, margin
                                     setIsFocus(false);
                                     setOptionSelectedIndex(-1);
                                 }
-                            }, className: isFocus && options.length > 0 ? styles["focus"] : styles["no-focus"], style: {
+                            }, className: isFocus && options.length > 0 ? "focus" : "no-focus", style: {
                                 cursor: searchable ? "text" : "pointer",
                                 borderColor: error.isError ? "#e0457b" : "initial",
                                 fontWeight: (value && value.length > 0) || inputValue.length > 0 ? "600" : "initial",
@@ -234,7 +427,7 @@ const InputDropdown = ({ marginTop = 1, marginBottom = 1, marginLeft = 0, margin
                                     }, 1);
                                 }
                             } }), icon &&
-                            _jsx("div", { className: styles["area-icon"], children: _jsx("img", { className: styles["icon"], src: icon, alt: "icon" }) }), _jsxs("div", { className: styles["area-images"], children: [(clearable && !disabled) && (value === undefined && inputValue.length > 0 || value !== undefined && value.length > 0) && (_jsx("img", { "data-testid": "remove-text", className: styles["remove-text"], src: xmarkSolid, alt: "icon", onClick: () => {
+                            _jsx("div", { className: "area-icon", children: _jsx("img", { className: "icon", src: icon, alt: "icon" }) }), _jsxs("div", { className: "area-images", children: [(clearable && !disabled) && (value === undefined && inputValue.length > 0 || value !== undefined && value.length > 0) && (_jsx("img", { "data-testid": "remove-text", className: "remove-text", src: xmarkSolid, alt: "icon", onClick: () => {
                                         /* console.log("roy"); */
                                         setIsSelectedByOptions(true);
                                         setInputValue("");
@@ -246,7 +439,7 @@ const InputDropdown = ({ marginTop = 1, marginBottom = 1, marginLeft = 0, margin
                                                 value: "",
                                             },
                                         });
-                                    } })), _jsx("img", { id: styles["arrow-info"], className: isFocus && options.length > 0 ? styles["up"] : styles["down"], src: chevronBottom, alt: "arrow-info" })] }), (isFocus && options.length > 0) && (createPortal(_jsxs("div", { onKeyDown: (ev) => {
+                                    } })), _jsx("img", { id: "arrow-info", className: isFocus && options.length > 0 ? "up" : "down", src: chevronBottom, alt: "arrow-info" })] }), (isFocus && options.length > 0) && (createPortal(_jsxs("div", { onKeyDown: (ev) => {
                                 if (ev.code === "Enter") {
                                     const optionsNew = !isSelectedByOptions && !searchable?.async ? dataSearch : options;
                                     setInputValue(optionsNew[optionSelectedIndex].value);
@@ -266,14 +459,14 @@ const InputDropdown = ({ marginTop = 1, marginBottom = 1, marginLeft = 0, margin
                                 if (!ev.relatedTarget) {
                                     setIsFocus(false);
                                     setOptionSelectedIndex(-1);
-                                    const areaOptions = document.getElementsByClassName(styles["area-options"])[0];
+                                    const areaOptions = document.getElementsByClassName("area-options")[0];
                                     areaOptions.style.display = "none";
                                 }
                             }, "data-testid": "area-options", style: {
                                 top: input.getBoundingClientRect().top + input.offsetHeight || "",
                                 width: input.getBoundingClientRect().width || "",
                                 opacity: 0
-                            }, className: styles["area-options"], children: [isSelectedByOptions &&
+                            }, className: "area-options", children: [isSelectedByOptions &&
                                     options.map((item, index) => (_jsxs("div", { tabIndex: index, style: {
                                             backgroundColor: !isOptionSelectedIndex ?
                                                 value ?
@@ -287,7 +480,7 @@ const InputDropdown = ({ marginTop = 1, marginBottom = 1, marginLeft = 0, margin
                                             setSearch(item.text);
                                             onChange({ data: item });
                                             setIsFocus(false);
-                                        }, className: styles["item"], id: `item-${index}`, children: [item.img &&
+                                        }, className: "item", id: `item-${index}`, children: [item.img &&
                                                 _jsx("img", { src: item.img, alt: "img-option" }), item.text] }, item.key))), !isSelectedByOptions &&
                                     (!searchable?.async ? dataSearch : options).map((item, index) => (_jsxs("div", { tabIndex: index, onMouseDown: (event) => {
                                             event.preventDefault();
@@ -296,7 +489,7 @@ const InputDropdown = ({ marginTop = 1, marginBottom = 1, marginLeft = 0, margin
                                             setSearch(item.text);
                                             onChange({ data: item });
                                             setIsFocus(false);
-                                        }, className: styles["item"], id: `item-${index}`, children: [item.img &&
+                                        }, className: "item", id: `item-${index}`, children: [item.img &&
                                                 _jsx("img", { src: item.img, alt: "img-option" }), item.text] }, item.key)))] }), document.body))] }), _jsx(LineBarGroupUnid, { marginTop: 0, positionGroups: "flex-start", unidGroups: [
                         {
                             unid: _jsx(_Fragment, { children: error.isError &&

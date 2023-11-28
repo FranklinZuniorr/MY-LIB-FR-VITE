@@ -1,5 +1,4 @@
 import { jsx as _jsx, Fragment as _Fragment, jsxs as _jsxs } from "react/jsx-runtime";
-import styles from "./InputImage.module.scss";
 import { useState } from "react";
 import { useDropzone } from "react-dropzone";
 import imageCompression from "browser-image-compression";
@@ -7,6 +6,290 @@ import { Loader } from "@quero-delivery/quero-components-web";
 import LineBarGroupUnid from "../../areas/_lineBarGroupUnid/LineBarGroupUnid";
 import Title from "../../texts/_title/Title";
 import avatarNovaMarca from "../../../assets/images/icons/avatar-nova-marca.png";
+import styled from "styled-components";
+const Div = styled.div `
+width: fit-content;
+
+#container {
+   background-color: rgb(200, 200, 200);
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   border-radius: 1rem;
+   overflow: hidden;
+   border: 2px solid rgb(102, 102, 102);
+   position: relative;
+
+   &.active-file{
+      &::before {
+         content: "";
+         position: absolute;
+         width: inherit;
+         height: inherit;
+         border-radius: 1rem;
+         transition: 0.3s;
+         pointer-events: none;
+         background-color: #00000073;
+         background-image: url("../../../assets/images/icons/camera.svg");
+         background-repeat: no-repeat;
+         background-size: 5rem;
+         background-position: center;
+         opacity: 0;
+      }
+   
+      &:hover {
+         &::before {
+            opacity: 1;
+         }
+      }
+   }
+
+   &.active-rounded-file{
+      &::before {
+         content: "";
+         position: absolute;
+         width: inherit;
+         height: inherit;
+         border-radius: 100%;
+         transition: 0.3s;
+         pointer-events: none;
+         background-color: #00000073;
+         background-image: url("../../../assets/images/icons/camera.svg");
+         background-repeat: no-repeat;
+         background-size: 5rem;
+         background-position: center;
+         opacity: 0;
+      }
+   
+      &:hover {
+         &::before {
+            opacity: 1;
+         }
+      }
+   }
+
+   &.active-clearable-file{
+      &::before {
+         content: "";
+         position: absolute;
+         width: inherit;
+         height: inherit;
+         border-radius: 1rem;
+         transition: 0.3s;
+         pointer-events: none;
+         background-color: #00000073;
+         background-image: url("../../../assets/images/icons/camera.svg");
+         background-repeat: no-repeat;
+         background-size: 5rem;
+         background-position: center;
+         border-bottom-left-radius: 0;
+         border-bottom-right-radius: 0;
+         opacity: 0;
+      }
+   
+      &:hover {
+         &::before {
+            opacity: 1;
+         }
+      }
+   }
+
+   &.active-clearable-rounded-file{
+      &::before {
+         content: "";
+         position: absolute;
+         width: inherit;
+         height: inherit;
+         border-radius: 100%;
+         transition: 0.3s;
+         pointer-events: none;
+         background-color: #00000073;
+         background-image: url("../../../assets/images/icons/camera.svg");
+         background-repeat: no-repeat;
+         background-size: 5rem;
+         background-position: center;
+         opacity: 0;
+      }
+   
+      &:hover {
+         &::before {
+            opacity: 1;
+         }
+      }
+   }
+
+   &.active-url{
+      &::before {
+         content: "";
+         position: absolute;
+         width: inherit;
+         height: inherit;
+         border-radius: 1rem;
+         transition: 0.3s;
+         pointer-events: none;
+         background-color: #00000073;
+         background-image: url("../../../assets/images/icons/paste.svg");
+         background-repeat: no-repeat;
+         background-size: 5rem;
+         background-position: center;
+         opacity: 0;
+      }
+   
+      &:hover {
+         &::before {
+            opacity: 1;
+         }
+      }
+   }
+
+   &.active-rounded-url{
+      &::before {
+         content: "";
+         position: absolute;
+         width: inherit;
+         height: inherit;
+         border-radius: 100%;
+         transition: 0.3s;
+         pointer-events: none;
+         background-color: #00000073;
+         background-image: url("../../../assets/images/icons/paste.svg");
+         background-repeat: no-repeat;
+         background-size: 5rem;
+         background-position: center;
+         opacity: 0;
+      }
+   
+      &:hover {
+         &::before {
+            opacity: 1;
+         }
+      }
+   }
+
+   &.active-clearable-url{
+      &::before {
+         content: "";
+         position: absolute;
+         width: inherit;
+         height: inherit;
+         border-radius: 1rem;
+         transition: 0.3s;
+         pointer-events: none;
+         background-color: #00000073;
+         background-image: url("../../../assets/images/icons/paste.svg");
+         background-repeat: no-repeat;
+         background-size: 5rem;
+         background-position: center;
+         border-bottom-left-radius: 0;
+         border-bottom-right-radius: 0;
+         opacity: 0;
+      }
+   
+      &:hover {
+         &::before {
+            opacity: 1;
+         }
+      }
+   }
+
+   &.active-clearable-rounded-url{
+      &::before {
+         content: "";
+         position: absolute;
+         width: inherit;
+         height: inherit;
+         border-radius: 100%;
+         transition: 0.3s;
+         pointer-events: none;
+         background-color: #00000073;
+         background-image: url("../../../assets/images/icons/paste.svg");
+         background-repeat: no-repeat;
+         background-size: 5rem;
+         background-position: center;
+         opacity: 0;
+      }
+   
+      &:hover {
+         &::before {
+            opacity: 1;
+         }
+      }
+   }
+
+   &.focus {
+      &::before {
+         opacity: 1;
+      }
+   }
+
+   div[role="presentation"] {
+      height: 100%;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+
+      img {
+         background-color: rgb(237, 237, 237);
+         width: 100%;
+         height: 100%;
+         cursor: pointer !important;
+      }
+   }
+
+   img {
+      background-color: rgb(237, 237, 237);
+      width: 100%;
+      height: 100%;
+      cursor: pointer !important;
+   }
+}
+
+.clear-area{
+   cursor: pointer;
+   border: 2px solid rgb(102, 102, 102);
+   font-family: Montserrat;
+   font-style: normal;
+   font-weight: 500;
+   line-height: 30px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   background-color: $primary-transparent-2;
+   border-bottom-left-radius: 1rem;
+   border-bottom-right-radius: 1rem;
+
+   &:hover{
+      background-color: $partners-brand-color-secondary-400;
+      color: $off-white;
+      border-color: $primary-dark !important;
+      border-style: groove !important;
+   }
+}
+
+.clear-area-rounded{
+   cursor: pointer;
+   border: 2px solid rgb(102, 102, 102);
+   font-family: Montserrat;
+   font-style: normal;
+   font-weight: 500;
+   line-height: 30px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   background-color: $primary-transparent-2;
+   border-radius: 2rem;
+   margin-top: 1rem;
+
+   &:hover{
+      background-color: $partners-brand-color-secondary-400;
+      color: $off-white;
+      border-color: $primary-dark !important;
+      border-style: groove !important;
+   }
+}  
+`;
 const InputImage = ({ width = 10, height = 10, onChange = () => null, marginTop = 1, marginBottom = 1, marginLeft = 1, marginRight = 1, startImage = "", disabled = false, error = { isError: false, text: "Um texto vai aqui!" }, value = "", required = false, clearable = false, name = "", rounded = false, fluid = false, type = "FILE" }) => {
     const { getRootProps, getInputProps } = useDropzone({
         accept: { "image/*": [] },
@@ -79,13 +362,13 @@ const InputImage = ({ width = 10, height = 10, onChange = () => null, marginTop 
             };
         });
     };
-    return (_jsx(_Fragment, { children: _jsxs("div", { className: styles["input-image"], style: {
+    return (_jsx(_Fragment, { children: _jsxs(Div, { style: {
                 marginTop: `${marginTop}rem`,
                 marginLeft: `${marginLeft}rem`,
                 marginRight: `${marginRight}rem`,
                 width: fluid ? "100%" : `${width}rem`,
                 height: "fit-content"
-            }, children: [_jsx("div", { id: styles["container"], style: {
+            }, children: [_jsx("div", { id: "container", style: {
                         width: "100%",
                         height: `${height}rem`,
                         opacity: disabled ? "0.3" : "1",
@@ -93,18 +376,18 @@ const InputImage = ({ width = 10, height = 10, onChange = () => null, marginTop 
                         borderStyle: error.isError ? "groove" : "dashed",
                         borderRadius: (!rounded && clearable && (imageSelected.length > 0 || value.length > 0)) ? "1rem 1rem 0rem 0rem" : rounded ? "100%" : ""
                     }, className: disabled ?
-                        styles["no-active"] :
+                        "no-active" :
                         (clearable && (imageSelected.length > 0 || value.length > 0)) ?
                             rounded ?
                                 type === "FILE" ?
-                                    styles["active-clearable-rounded-file"] : styles["active-clearable-rounded-url"] :
+                                    "active-clearable-rounded-file" : "active-clearable-rounded-url" :
                                 type === "FILE" ?
-                                    styles["active-clearable-file"] : styles["active-clearable-url"] :
+                                    "active-clearable-file" : "active-clearable-url" :
                             rounded ?
                                 type === "FILE" ?
-                                    styles["active-rounded-file"] : styles["active-rounded-url"] :
+                                    "active-rounded-file" : "active-rounded-url" :
                                 type === "FILE" ?
-                                    styles["active-file"] : styles["active-url"], children: disabled ?
+                                    "active-file" : "active-url", children: disabled ?
                         (_jsx("img", { src: avatarNovaMarca, alt: "selected" })) : type === "FILE" ?
                         (_jsx("div", { ...getRootProps(), contentEditable: "inherit", children: isLoadingImg ? (_jsx(Loader, {})) : (_jsxs(_Fragment, { children: [_jsx("input", { name: name, ...getInputProps(), contentEditable: "inherit" }), _jsx("img", { "data-testid": "image", src: value ? value : imageSelected !== "" ? imageSelected : avatarNovaMarca, alt: "selected" })] })) })) :
                         (_jsx(_Fragment, { children: isLoadingImg ? (_jsx(Loader, {})) : (_jsx(_Fragment, { children: _jsx("img", { onClick: async () => {
@@ -148,7 +431,7 @@ const InputImage = ({ width = 10, height = 10, onChange = () => null, marginTop 
                                 },
                                 url: ""
                             });
-                        }, className: styles["clear-area-rounded"], style: {
+                        }, className: "clear-area-rounded", style: {
                             width: "100%",
                             maxWidth: fluid ? "100%" : `${width}rem`,
                         }, children: "Apagar" }), ((clearable && (imageSelected.length > 0 || value.length > 0)) && !rounded) &&
@@ -165,7 +448,7 @@ const InputImage = ({ width = 10, height = 10, onChange = () => null, marginTop 
                                 },
                                 url: ""
                             });
-                        }, className: styles["clear-area"], style: {
+                        }, className: "clear-area", style: {
                             opacity: disabled ? "0.3" : "1",
                             borderColor: error.isError || required ? "#e0457b" : "initial",
                             borderStyle: error.isError ? "groove" : "dashed",

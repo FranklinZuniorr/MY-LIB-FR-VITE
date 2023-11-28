@@ -1,4 +1,3 @@
-import styles from "./InputImage.module.scss";
 import React, { useState } from "react";
 import { useDropzone } from "react-dropzone";
 import imageCompression from "browser-image-compression";
@@ -6,6 +5,7 @@ import { Loader } from "@quero-delivery/quero-components-web";
 import LineBarGroupUnid from "../../areas/_lineBarGroupUnid/LineBarGroupUnid";
 import Title from "../../texts/_title/Title";
 import avatarNovaMarca from "../../../assets/images/icons/avatar-nova-marca.png";
+import styled from "styled-components";
 
 interface IFileInfo {
    lastModified: number | string;
@@ -44,6 +44,290 @@ interface IInputImageProps {
    fluid?: boolean;
    type?: "FILE" | "URL"
 }
+
+const Div = styled.div`
+width: fit-content;
+
+#container {
+   background-color: rgb(200, 200, 200);
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   border-radius: 1rem;
+   overflow: hidden;
+   border: 2px solid rgb(102, 102, 102);
+   position: relative;
+
+   &.active-file{
+      &::before {
+         content: "";
+         position: absolute;
+         width: inherit;
+         height: inherit;
+         border-radius: 1rem;
+         transition: 0.3s;
+         pointer-events: none;
+         background-color: #00000073;
+         background-image: url("../../../assets/images/icons/camera.svg");
+         background-repeat: no-repeat;
+         background-size: 5rem;
+         background-position: center;
+         opacity: 0;
+      }
+   
+      &:hover {
+         &::before {
+            opacity: 1;
+         }
+      }
+   }
+
+   &.active-rounded-file{
+      &::before {
+         content: "";
+         position: absolute;
+         width: inherit;
+         height: inherit;
+         border-radius: 100%;
+         transition: 0.3s;
+         pointer-events: none;
+         background-color: #00000073;
+         background-image: url("../../../assets/images/icons/camera.svg");
+         background-repeat: no-repeat;
+         background-size: 5rem;
+         background-position: center;
+         opacity: 0;
+      }
+   
+      &:hover {
+         &::before {
+            opacity: 1;
+         }
+      }
+   }
+
+   &.active-clearable-file{
+      &::before {
+         content: "";
+         position: absolute;
+         width: inherit;
+         height: inherit;
+         border-radius: 1rem;
+         transition: 0.3s;
+         pointer-events: none;
+         background-color: #00000073;
+         background-image: url("../../../assets/images/icons/camera.svg");
+         background-repeat: no-repeat;
+         background-size: 5rem;
+         background-position: center;
+         border-bottom-left-radius: 0;
+         border-bottom-right-radius: 0;
+         opacity: 0;
+      }
+   
+      &:hover {
+         &::before {
+            opacity: 1;
+         }
+      }
+   }
+
+   &.active-clearable-rounded-file{
+      &::before {
+         content: "";
+         position: absolute;
+         width: inherit;
+         height: inherit;
+         border-radius: 100%;
+         transition: 0.3s;
+         pointer-events: none;
+         background-color: #00000073;
+         background-image: url("../../../assets/images/icons/camera.svg");
+         background-repeat: no-repeat;
+         background-size: 5rem;
+         background-position: center;
+         opacity: 0;
+      }
+   
+      &:hover {
+         &::before {
+            opacity: 1;
+         }
+      }
+   }
+
+   &.active-url{
+      &::before {
+         content: "";
+         position: absolute;
+         width: inherit;
+         height: inherit;
+         border-radius: 1rem;
+         transition: 0.3s;
+         pointer-events: none;
+         background-color: #00000073;
+         background-image: url("../../../assets/images/icons/paste.svg");
+         background-repeat: no-repeat;
+         background-size: 5rem;
+         background-position: center;
+         opacity: 0;
+      }
+   
+      &:hover {
+         &::before {
+            opacity: 1;
+         }
+      }
+   }
+
+   &.active-rounded-url{
+      &::before {
+         content: "";
+         position: absolute;
+         width: inherit;
+         height: inherit;
+         border-radius: 100%;
+         transition: 0.3s;
+         pointer-events: none;
+         background-color: #00000073;
+         background-image: url("../../../assets/images/icons/paste.svg");
+         background-repeat: no-repeat;
+         background-size: 5rem;
+         background-position: center;
+         opacity: 0;
+      }
+   
+      &:hover {
+         &::before {
+            opacity: 1;
+         }
+      }
+   }
+
+   &.active-clearable-url{
+      &::before {
+         content: "";
+         position: absolute;
+         width: inherit;
+         height: inherit;
+         border-radius: 1rem;
+         transition: 0.3s;
+         pointer-events: none;
+         background-color: #00000073;
+         background-image: url("../../../assets/images/icons/paste.svg");
+         background-repeat: no-repeat;
+         background-size: 5rem;
+         background-position: center;
+         border-bottom-left-radius: 0;
+         border-bottom-right-radius: 0;
+         opacity: 0;
+      }
+   
+      &:hover {
+         &::before {
+            opacity: 1;
+         }
+      }
+   }
+
+   &.active-clearable-rounded-url{
+      &::before {
+         content: "";
+         position: absolute;
+         width: inherit;
+         height: inherit;
+         border-radius: 100%;
+         transition: 0.3s;
+         pointer-events: none;
+         background-color: #00000073;
+         background-image: url("../../../assets/images/icons/paste.svg");
+         background-repeat: no-repeat;
+         background-size: 5rem;
+         background-position: center;
+         opacity: 0;
+      }
+   
+      &:hover {
+         &::before {
+            opacity: 1;
+         }
+      }
+   }
+
+   &.focus {
+      &::before {
+         opacity: 1;
+      }
+   }
+
+   div[role="presentation"] {
+      height: 100%;
+      width: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+
+      img {
+         background-color: rgb(237, 237, 237);
+         width: 100%;
+         height: 100%;
+         cursor: pointer !important;
+      }
+   }
+
+   img {
+      background-color: rgb(237, 237, 237);
+      width: 100%;
+      height: 100%;
+      cursor: pointer !important;
+   }
+}
+
+.clear-area{
+   cursor: pointer;
+   border: 2px solid rgb(102, 102, 102);
+   font-family: Montserrat;
+   font-style: normal;
+   font-weight: 500;
+   line-height: 30px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   background-color: $primary-transparent-2;
+   border-bottom-left-radius: 1rem;
+   border-bottom-right-radius: 1rem;
+
+   &:hover{
+      background-color: $partners-brand-color-secondary-400;
+      color: $off-white;
+      border-color: $primary-dark !important;
+      border-style: groove !important;
+   }
+}
+
+.clear-area-rounded{
+   cursor: pointer;
+   border: 2px solid rgb(102, 102, 102);
+   font-family: Montserrat;
+   font-style: normal;
+   font-weight: 500;
+   line-height: 30px;
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   background-color: $primary-transparent-2;
+   border-radius: 2rem;
+   margin-top: 1rem;
+
+   &:hover{
+      background-color: $partners-brand-color-secondary-400;
+      color: $off-white;
+      border-color: $primary-dark !important;
+      border-style: groove !important;
+   }
+}  
+`;
 
 const InputImage: React.FC<IInputImageProps> = ({
    width = 10,
@@ -154,7 +438,7 @@ const InputImage: React.FC<IInputImageProps> = ({
 
    return (
       <>
-         <div className={styles["input-image"]}
+         <Div
          style={{
             marginTop: `${marginTop}rem`,
             marginLeft: `${marginLeft}rem`,
@@ -164,7 +448,7 @@ const InputImage: React.FC<IInputImageProps> = ({
          }}
          >
          <div
-            id={styles["container"]}
+            id="container"
             style={{
                width: "100%",
                height: `${height}rem`,
@@ -175,18 +459,18 @@ const InputImage: React.FC<IInputImageProps> = ({
             }}
             className={
                disabled? 
-               styles["no-active"]: 
+               "no-active": 
                (clearable && (imageSelected.length > 0 || value.length > 0))? 
                rounded? 
                type === "FILE"?
-               styles["active-clearable-rounded-file"]:styles["active-clearable-rounded-url"]:
+               "active-clearable-rounded-file":"active-clearable-rounded-url":
                type === "FILE"? 
-               styles["active-clearable-file"]:styles["active-clearable-url"]:
+               "active-clearable-file":"active-clearable-url":
                rounded?
                type === "FILE"?
-               styles["active-rounded-file"]:styles["active-rounded-url"]:
+               "active-rounded-file":"active-rounded-url":
                type === "FILE"?
-               styles["active-file"]:styles["active-url"]
+               "active-file":"active-url"
             }
          >
             {
@@ -274,7 +558,7 @@ const InputImage: React.FC<IInputImageProps> = ({
                   url: "" 
                });
             }}
-            className={styles["clear-area-rounded"]} 
+            className="clear-area-rounded"
             style={{
                width: "100%",
                maxWidth: fluid? "100%":`${width}rem`,
@@ -301,7 +585,7 @@ const InputImage: React.FC<IInputImageProps> = ({
                   url: "" 
                });
             }}
-            className={styles["clear-area"]} 
+            className="clear-area"
             style={{
                opacity: disabled ? "0.3" : "1",
                borderColor: error.isError || required ? "#e0457b" : "initial",
@@ -343,8 +627,7 @@ const InputImage: React.FC<IInputImageProps> = ({
                ]}
             />
          }
-         </div>
-      
+         </Div>
       </>
    );
 };

@@ -1,4 +1,4 @@
-import styles from "./Title.module.scss";
+import styled from "styled-components";
 
 interface ITitleProps {
    text: string;
@@ -14,6 +14,23 @@ interface ITitleProps {
    lineHeight?: number,
    required?: boolean
 }
+
+const Div = styled.div`
+   font-feature-settings:
+      "clig" off,
+      "liga" off;
+   font-family: Montserrat;
+   font-size: 18px;
+   font-style: normal;
+   font-weight: 700;
+   letter-spacing: 0.15px;
+   display: flex;
+
+   .required{
+      margin-left: 0.3rem;
+      color: $partners-brand-color-secondary-400
+   }
+`;
 
 const Title: React.FC<ITitleProps> = ({
    text,
@@ -31,8 +48,7 @@ const Title: React.FC<ITitleProps> = ({
 }) => {
    return (
       <>
-         <div
-            className={styles["title-new"]}
+         <Div
             style={{
                fontSize: `${size}px`,
                marginTop: `${marginTop}rem`,
@@ -48,8 +64,8 @@ const Title: React.FC<ITitleProps> = ({
                lineHeight: `${lineHeight}rem`
             }}
          >
-            <span>{text}{required && <span className={styles["required"]}>*</span>}</span>
-         </div>
+            <span>{text}{required && <span className="required">*</span>}</span>
+         </Div>
       </>
    );
 };

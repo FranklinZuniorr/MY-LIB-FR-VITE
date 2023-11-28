@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
-import styles from "./InputDropDown.module.scss";
 import LineBarGroupUnid from "../../areas/_lineBarGroupUnid/LineBarGroupUnid";
 import Title from "../../texts/_title/Title";
 import { createPortal } from "react-dom";
 import xmarkSolid from "../../../assets/images/icons/xmark-solid-purple.svg";
 import chevronBottom from "../../../assets/images/icons/chevron-bottom.svg";
+import styled from "styled-components";
 
 interface IData {
    data: IOption;
@@ -58,6 +58,200 @@ interface IInputDropdownProps {
    name?: string;
 }
 
+const Div = styled.div`
+   position: relative;
+   text-overflow: ellipsis;
+   display: flex;
+   align-items: flex-start;
+   flex-direction: column;
+   justify-content: flex-start;
+   flex-grow: 1 !important;
+
+   label {
+      color: $partners-neutral-color-600;
+      font-feature-settings:
+         "clig" off,
+         "liga" off;
+      font-family: Montserrat;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 24px;
+      letter-spacing: 0.15px;
+   }
+
+   div.dropdown-area {
+      display: flex;
+      align-items: center;
+      width: 100%;
+
+      input {
+         border-radius: 10px;
+         border: 1px solid $partners-neutral-color-400;
+         background-color: $partners-base-color-white;
+         height: 3rem;
+         width: 100%;
+         outline: 0;
+         color: $partners-neutral-color-600;
+         font-feature-settings:
+            "clig" off,
+            "liga" off;
+         font-family: Montserrat;
+         font-size: 14px;
+         font-style: normal;
+         font-weight: 500;
+         line-height: 20px;
+         letter-spacing: 0.25px;
+         text-overflow: ellipsis;
+         padding-right: 3rem;
+         padding-left: 1rem;
+
+         &.focus {
+            border-radius: 0;
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+         }
+
+         &.no-focus {
+            border-radius: 10px;
+         }
+
+         &::placeholder {
+            color: $partners-neutral-color-400;
+            font-feature-settings:
+               "clig" off,
+               "liga" off;
+            font-family: Montserrat;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: 20px;
+            letter-spacing: 0.25px;
+         }
+      }
+
+      .area-images {
+         position: absolute;
+         right: 1rem;
+         display: flex;
+         align-items: center;
+         pointer-events: none;
+
+         img#arrow-info {
+            pointer-events: none;
+            cursor: unset;
+            &.up {
+               transform: rotate(180deg);
+            }
+
+            &.down {
+               transform: rotate(0deg);
+            }
+         }
+
+         img.remove-text {
+            pointer-events: all;
+         }
+      }
+
+      .area-icon {
+         position: absolute;
+         left: 1rem;
+         display: flex;
+         align-items: center;
+         pointer-events: none;
+
+         img.icon {
+            width: 1.2rem;
+            pointer-events: all;
+         }
+      }
+
+      img.remove-text {
+         position: absolute;
+         right: 1rem;
+         width: 1.4rem;
+         height: 1.4rem;
+         background-color: #dedede38;
+         padding: 0.2rem;
+         border-radius: 0.5rem;
+         backdrop-filter: blur(1px);
+         cursor: pointer;
+      }
+   }
+
+   img.required {
+      position: absolute;
+      bottom: 11px;
+      right: 16px;
+      width: 1.4rem;
+      height: 1.4rem;
+      background-color: #dedede38;
+      padding: 0.2rem;
+      border-radius: 0.5rem;
+      backdrop-filter: blur(1px);
+   }
+}
+
+body{
+   .area-options {
+      background-color: $partners-base-color-white;
+      border: 1px solid #707070;
+      border-bottom-right-radius: 16px;
+      border-bottom-left-radius: 16px;
+      border-top: 0;
+      width: inherit;
+      max-height: 10rem;
+      position: fixed !important;
+      overflow-y: auto;
+      transition: 0.1;
+      z-index: 9999999999 !important;
+      margin-top: 0;
+
+      div.item:focus {
+         outline: 0px solid black;
+         border-top: 1px solid $partners-brand-color-primary-400;
+         border-bottom: 1px solid $partners-brand-color-primary-400;
+         border-radius: 0.5rem;
+         background-color: $partners-brand-color-primary-800;
+         margin: 0.2rem;
+      }
+
+      div.item {
+         color: $partners-neutral-color-600;
+         font-feature-settings:
+            "clig" off,
+            "liga" off;
+         font-family: Montserrat;
+         font-size: 15px;
+         font-style: normal;
+         font-weight: 600;
+         line-height: 24px;
+         letter-spacing: 0.15px;
+
+         padding: 0.2rem;
+         padding-left: 0.4rem;
+         padding-right: 0.4rem;
+         pointer-events: all;
+         cursor: pointer;
+         /* border-bottom: 1px solid $partners-neutral-color-400; */
+         word-break: break-all;
+         display: flex;
+         align-items: center;
+
+         img{
+            width: 1.2rem;
+            height: 1.2rem;
+            margin-right: 0.5rem;
+         }
+
+         &:hover {
+            background-color: rgb(245, 245, 245);
+         }
+      }
+   }
+`;
+
 const InputDropdown: React.FC<IInputDropdownProps> = ({
    marginTop = 1,
    marginBottom = 1,
@@ -89,7 +283,7 @@ const InputDropdown: React.FC<IInputDropdownProps> = ({
 
    const [eventTarget, setEventTarget] = useState<React.ChangeEvent<HTMLInputElement> | React.MouseEvent<HTMLInputElement, MouseEvent>>();
 
-   const input = document.getElementsByClassName(styles["dropdown-area"])[0] as HTMLElement;
+   const input = document.getElementsByClassName("dropdown-area")[0] as HTMLElement;
    
    const fixPositionAreaOptions = (event: Event | React.MouseEvent<HTMLInputElement, MouseEvent> | React.ChangeEvent<HTMLInputElement>) => {
       const target: HTMLElement = event.target as HTMLElement;
@@ -100,7 +294,7 @@ const InputDropdown: React.FC<IInputDropdownProps> = ({
          const targetWidth: number = target.getBoundingClientRect().width;
    
          setTimeout(() => {
-            const areaOptions = document.getElementsByClassName(styles["area-options"])[0] as HTMLElement;
+            const areaOptions = document.getElementsByClassName("area-options")[0] as HTMLElement;
             if(areaOptions){
                areaOptions.style.opacity = "1";
                areaOptions.style.zIndex = "99999999999"
@@ -251,7 +445,7 @@ const InputDropdown: React.FC<IInputDropdownProps> = ({
 
    return (
       <>
-         <div
+         <Div
             style={{
                marginTop: `${marginTop}rem`,
                marginBottom: `${marginBottom}rem`,
@@ -260,7 +454,6 @@ const InputDropdown: React.FC<IInputDropdownProps> = ({
                [width.resizeAdjust ? "maxWidth" : "width"]: width.size === 0 ? "100%" : `${width.size}${width.type}`,
                opacity: disabled ? "0.5" : "1",
             }}
-            className={styles["dropdown-qd"]}
          >
             {label.value !== "" && (
                <label
@@ -272,12 +465,12 @@ const InputDropdown: React.FC<IInputDropdownProps> = ({
                   {label.requiredInput ? <span style={{ color: "#e0457b" }}> *</span> : ""}
                </label>
             )}
-            <div id="dropdown-area-parent" className={styles["dropdown-area"]}>
+            <div id="dropdown-area-parent" className={"dropdown-area"}>
                <input
                   name={name}
                   autoComplete="off"
                   data-testid="input"
-                  id={styles["input-dropdown"]}
+                  id="input-dropdown"
                   value={
                      searchable? 
                      options.find(item => {
@@ -318,7 +511,7 @@ const InputDropdown: React.FC<IInputDropdownProps> = ({
                         setOptionSelectedIndex(-1);
                      }
                   }}
-                  className={isFocus && options.length > 0? styles["focus"] : styles["no-focus"]}
+                  className={isFocus && options.length > 0? "focus" : "no-focus"}
                   style={{
                      cursor: searchable ? "text" : "pointer",
                      borderColor: error.isError ? "#e0457b" : "initial",
@@ -352,19 +545,19 @@ const InputDropdown: React.FC<IInputDropdownProps> = ({
                />
                {
                   icon &&
-                  <div className={styles["area-icon"]}>
+                  <div className="area-icon">
                      <img
-                        className={styles["icon"]}
+                        className="icon"
                         src={icon}
                         alt="icon"
                      />
                   </div>
                }
-               <div className={styles["area-images"]}>
+               <div className="area-images">
                   {(clearable && !disabled) && (value === undefined && inputValue.length > 0 || value !== undefined && value.length > 0) && (
                      <img
                         data-testid="remove-text"
-                        className={styles["remove-text"]}
+                        className="remove-text"
                         src={xmarkSolid}
                         alt="icon"
                         onClick={() => {
@@ -383,8 +576,8 @@ const InputDropdown: React.FC<IInputDropdownProps> = ({
                      />
                   )}
                   <img
-                     id={styles["arrow-info"]}
-                     className={isFocus && options.length > 0? styles["up"] : styles["down"]}
+                     id="arrow-info"
+                     className={isFocus && options.length > 0? "up" : "down"}
                      src={chevronBottom}
                      alt="arrow-info"
                   />
@@ -414,7 +607,7 @@ const InputDropdown: React.FC<IInputDropdownProps> = ({
                      if(!ev.relatedTarget){
                         setIsFocus(false);
                         setOptionSelectedIndex(-1);
-                        const areaOptions = document.getElementsByClassName(styles["area-options"])[0] as HTMLElement;
+                        const areaOptions = document.getElementsByClassName("area-options")[0] as HTMLElement;
                         areaOptions.style.display = "none";
                      }
                   }}
@@ -424,7 +617,7 @@ const InputDropdown: React.FC<IInputDropdownProps> = ({
                      width: input.getBoundingClientRect().width || "",
                      opacity: 0
                   }} 
-                  className={styles["area-options"]}
+                  className="area-options"
                   >
                      {isSelectedByOptions &&
                         options.map((item, index) => (
@@ -452,7 +645,7 @@ const InputDropdown: React.FC<IInputDropdownProps> = ({
                                  setIsFocus(false);
                               }}
                               key={item.key}
-                              className={styles["item"]}
+                              className="item"
                               id={`item-${index}`}
                            >
                               {
@@ -475,7 +668,7 @@ const InputDropdown: React.FC<IInputDropdownProps> = ({
                                  setIsFocus(false);
                               }}
                               key={item.key}
-                              className={styles["item"]}  
+                              className="item" 
                               id={`item-${index}`}
                            >
                               {
@@ -517,7 +710,7 @@ const InputDropdown: React.FC<IInputDropdownProps> = ({
                   }
                ]}
             />
-         </div>
+         </Div>
       </>
    );
 };

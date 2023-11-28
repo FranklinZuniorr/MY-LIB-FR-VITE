@@ -1,9 +1,9 @@
 import { useState } from "react";
-import styles from "./InputMinMax.module.scss";
 import LineBarGroupUnid from "../../areas/_lineBarGroupUnid/LineBarGroupUnid";
 import Title from "../../texts/_title/Title";
 import minus from "../../../assets/images/icons/minus-grey.svg";
 import more from "../../../assets/images/icons/more-grey.svg";
+import styled from "styled-components";
 
 interface IData {
    value: string;
@@ -40,6 +40,115 @@ interface IInputMinMaxProps {
    min?: number;
    name?: string;
 }
+
+const Div = styled.div`
+position: relative;
+   text-overflow: ellipsis;
+   display: flex;
+   align-items: flex-start;
+   flex-direction: column;
+   justify-content: flex-start;
+   flex-grow: 1 !important;
+
+   label {
+      color: $partners-neutral-color-600;
+      font-feature-settings:
+         "clig" off,
+         "liga" off;
+      font-family: Montserrat;
+      font-size: 14px;
+      font-style: normal;
+      font-weight: 600;
+      line-height: 24px;
+      letter-spacing: 0.15px;
+   }
+
+   div.input-area {
+      display: flex;
+      align-items: center;
+      width: 100%;
+
+      input {
+         border-radius: 10px;
+         border: 1px solid $partners-neutral-color-400;
+         background-color: $partners-base-color-white;
+         height: 3rem;
+         width: 100%;
+         padding-top: 1rem;
+         padding-bottom: 1rem;
+         outline: 0;
+         color: $partners-neutral-color-600;
+         font-feature-settings:
+            "clig" off,
+            "liga" off;
+         font-family: Montserrat;
+         font-size: 14px;
+         font-style: normal;
+         font-weight: 500;
+         line-height: 20px;
+         letter-spacing: 0.25px;
+         text-overflow: ellipsis;
+         padding-right: 2.5rem;
+         padding-left: 2.5rem;
+         text-align: center;
+
+         &::placeholder {
+            color: $partners-neutral-color-400;
+            font-feature-settings:
+               "clig" off,
+               "liga" off;
+            font-family: Montserrat;
+            font-size: 14px;
+            font-style: normal;
+            font-weight: 500;
+            line-height: 20px;
+            letter-spacing: 0.25px;
+         }
+      }
+
+      .area-click-more {
+         padding: 1rem;
+         position: absolute;
+         right: 0;
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         cursor: pointer;
+         margin-right: 0.2rem;
+
+         img.more {
+            position: absolute;
+         }
+      }
+
+      .area-click-minus {
+         padding: 1rem;
+         position: absolute;
+         left: 0;
+         display: flex;
+         align-items: center;
+         justify-content: center;
+         cursor: pointer;
+         margin-left: 0.2rem;
+
+         img.minus {
+            position: absolute;
+         }
+      }
+   }
+
+   img.required {
+      position: absolute;
+      bottom: 11px;
+      right: 16px;
+      width: 1.4rem;
+      height: 1.4rem;
+      background-color: #dedede38;
+      padding: 0.2rem;
+      border-radius: 0.5rem;
+      backdrop-filter: blur(1px);
+   }
+`;
 
 const InputMinMax: React.FC<IInputMinMaxProps> = ({
    marginTop = 1,
@@ -113,7 +222,7 @@ const InputMinMax: React.FC<IInputMinMaxProps> = ({
 
    return (
       <>
-         <div
+         <Div
             style={{
                marginTop: `${marginTop}rem`,
                marginBottom: `${marginBottom}rem`,
@@ -122,7 +231,6 @@ const InputMinMax: React.FC<IInputMinMaxProps> = ({
                [width.resizeAdjust ? "maxWidth" : "width"]: width.size === 0 ? "100%" : `${width.size}${width.type}`,
                opacity: disabled ? "0.5" : "1",
             }}
-            className={styles["input-min-max"]}
          >
             {label.value !== "" && (
                <label
@@ -134,7 +242,7 @@ const InputMinMax: React.FC<IInputMinMaxProps> = ({
                   {label.requiredInput ? <span style={{ color: "#e0457b" }}> *</span> : ""}
                </label>
             )}
-            <div className={styles["input-area"]}>
+            <div className="input-area">
                <input
                   name={name}
                   autoComplete="off"
@@ -176,18 +284,18 @@ const InputMinMax: React.FC<IInputMinMaxProps> = ({
                      setInputValue(value !== undefined? verifyValueMinOrMax(+value + 1):verifyValueMinOrMax(+inputValue + 1));
                      onChange({ value: value !== undefined? verifyValueMinOrMax(+value + 1):verifyValueMinOrMax(+inputValue + 1)});
                   }}
-                  className={styles["area-click-more"]}
+                  className="area-click-more"
                >
-                  <img src={minus} className={styles["more"]} alt="more" />
+                  <img src={minus} className="more" alt="more" />
                </div>
                <div
                   onClick={() => {
                      setInputValue(value !== undefined? verifyValueMinOrMax(+value - 1):verifyValueMinOrMax(+inputValue - 1));
                      onChange({ value: value !== undefined? verifyValueMinOrMax(+value - 1):verifyValueMinOrMax(+inputValue - 1)});
                   }}
-                  className={styles["area-click-minus"]}
+                  className="area-click-minus"
                >
-                  <img src={more} className={styles["minus"]} alt="minus" />
+                  <img src={more} className="minus" alt="minus" />
                </div>
             </div>
             
@@ -217,7 +325,7 @@ const InputMinMax: React.FC<IInputMinMaxProps> = ({
                   }
                ]}
             />
-         </div>
+         </Div>
       </>
    );
 };

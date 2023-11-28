@@ -1,5 +1,5 @@
 import { Loader } from "@quero-delivery/quero-components-web";
-import styles from "./ButtonDefault.module.scss";
+import styled from "styled-components";
 
 interface IBorder {
    size?: number;
@@ -32,6 +32,31 @@ interface IButtonDefaultProps {
    fluid?: boolean
 }
 
+const Div = styled.div`
+.button-default {
+   display: flex;
+   align-items: center;
+   justify-content: center;
+   font-family: Montserrat;
+   font-style: normal;
+   font-weight: 700;
+   line-height: 24px;
+   border-radius: 2rem;
+   cursor: pointer;
+   
+   font-size: 14px;
+
+   /* &:hover {
+      background-color: $partners-neutral-color-101 !important;
+      color: $partners-brand-color-primary-400 !important;
+   } */
+
+   img.icon {
+      pointer-events: none;
+   }
+}
+`;
+
 const ButtonDefault: React.FC<IButtonDefaultProps> = ({
    background = { color: "#F7EB48" },
    border,
@@ -56,7 +81,7 @@ const ButtonDefault: React.FC<IButtonDefaultProps> = ({
 
    return (
       <>
-         <div
+         <Div
             style={{
                flexGrow: flexGrow,
                display: "flex",
@@ -68,7 +93,7 @@ const ButtonDefault: React.FC<IButtonDefaultProps> = ({
                type={type}
                onClick={onClick}
                data-testid="button-default"
-               className={styles["button-default"]}
+               className="button-default"
                name={name}
                style={{
                   backgroundColor: `${background.color}`,
@@ -96,7 +121,7 @@ const ButtonDefault: React.FC<IButtonDefaultProps> = ({
                               width: `${textSpread.size + 3}px`,
                               marginRight: textSpread.value.length > 0? "0.5rem":"",
                            }}
-                           className={styles["icon"]}
+                           className="icon"
                            src={icon}
                            alt="icon"
                         />
@@ -105,7 +130,7 @@ const ButtonDefault: React.FC<IButtonDefaultProps> = ({
                   </>
                )}
             </button>
-         </div>
+         </Div>
       </>
    );
 };

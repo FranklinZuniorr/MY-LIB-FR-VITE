@@ -1,8 +1,8 @@
 import { Radio } from "antd";
 import Section from "../areas/_section/Section";
-import styles from "./RadioOptions.module.scss";
 import Title from "../texts/_title/Title";
 import { useState } from "react";
+import styled from "styled-components";
 
 interface IOption {
     key: string;
@@ -22,6 +22,18 @@ interface IRadioOptionsProps{
     name?: string;
 }
 
+const Div = styled.div`
+.area-1{
+    display: flex;
+    gap: 1rem !important;
+    flex-wrap: wrap;
+    
+    .item{
+        display: flex;
+    }
+}
+`;
+
 const RadioOptions: React.FC<IRadioOptionsProps> = ({
     marginBottom = 0,
     marginTop = 0,
@@ -38,7 +50,7 @@ const RadioOptions: React.FC<IRadioOptionsProps> = ({
 
     return(
         <>
-            <div className={styles["radio-options"]} style={{
+            <Div style={{
                 marginBottom: `${marginBottom}rem`,
                 marginTop: `${marginTop}rem`,
                 marginLeft: `${marginLeft}rem`,
@@ -50,7 +62,7 @@ const RadioOptions: React.FC<IRadioOptionsProps> = ({
                 }} value={
                     value? value:valueRadio
                 }>
-                    <div className={styles["area-1"]} style={{
+                    <div className={"area-1"} style={{
                         justifyContent: position
                     }}>
                         {
@@ -60,7 +72,7 @@ const RadioOptions: React.FC<IRadioOptionsProps> = ({
                                 marginLeft={0} marginTop={0} marginBottom={0} marginRight={0.5}
                                 fluid={false} resizeAdjust={false} shadow={false} border={{color: "#ACACAC", size: 1, radius: 15}}
                                 >
-                                    <div className={styles["item"]}>
+                                    <div className={"item"}>
                                         <Radio value={radio.value}/>
                                         <Title marginLeft={0.5} text={radio.text} size={14} color="#707070"/>
                                     </div>
@@ -69,7 +81,7 @@ const RadioOptions: React.FC<IRadioOptionsProps> = ({
                         }
                     </div>
                 </Radio.Group>
-            </div>
+            </Div>
         </>
     )
 }

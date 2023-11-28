@@ -1,8 +1,8 @@
 import { Checkbox } from "antd";
 import Section from "../areas/_section/Section";
-import styles from "./CheckboxOptions.module.scss";
 import Title from "../texts/_title/Title";
 import { useState } from "react";
+import styled from "styled-components";
 
 interface IOption {
     key: string;
@@ -31,6 +31,37 @@ interface ICheckboxOptionsProps{
     checkboxPosition?: "row" | "row-reverse"
 }
 
+const Div = styled.div`
+.area-1{
+    display: flex;
+    gap: 1rem !important;
+    flex-wrap: wrap;
+
+.area-elements{
+    display: flex;
+    align-items: center;
+
+    img{
+        width: 3.5rem;
+        margin-right: 1rem;
+    }
+
+    #item{
+        display: flex;
+
+        &.row{
+            flex-direction: row;
+        }
+
+        &.row-reverse{
+            flex-direction: row-reverse;
+        }
+    }
+}
+    
+}
+`;
+
 const CheckboxOptions: React.FC<ICheckboxOptionsProps> = ({
     marginBottom = 0,
     marginTop = 0,
@@ -49,7 +80,8 @@ const CheckboxOptions: React.FC<ICheckboxOptionsProps> = ({
 
     return(
         <>
-            <div className={styles["checkbox-options"]} style={{
+            <Div
+            style={{
                 marginBottom: `${marginBottom}rem`,
                 marginTop: `${marginTop}rem`,
                 marginLeft: `${marginLeft}rem`,
@@ -61,7 +93,7 @@ const CheckboxOptions: React.FC<ICheckboxOptionsProps> = ({
                 }}  value={
                     value? value:valueCheckbox
                 }>
-                    <div className={styles["area-1"]} style={{
+                    <div className="area-1" style={{
                         justifyContent: position
                     }}>
                         {
@@ -74,14 +106,14 @@ const CheckboxOptions: React.FC<ICheckboxOptionsProps> = ({
                                 shadow={false} 
                                 border={{color: checkbox.disabled? "#e0457b":"#ACACAC", size: 1, radius: 15}}
                                 >
-                                    <div className={styles["area-elements"]}>
+                                    <div className="area-elements">
                                         {
                                             checkbox.img &&
                                             <img src={checkbox.img} alt="icon-card-money"/>
                                         }
-                                        <div id={styles["item"]} className={
+                                        <div id="item" className={
                                             checkboxPosition ===  "row"? 
-                                            styles["row"]:styles["row-reverse"]
+                                            "row":"row-reverse"
                                         }>
                                             <Checkbox disabled={checkbox.disabled} onChange={(event) => {
                                                 if(event.target.checked){
@@ -102,7 +134,7 @@ const CheckboxOptions: React.FC<ICheckboxOptionsProps> = ({
                         }
                     </div>
                 </Checkbox.Group>
-            </div>
+            </Div>
         </>
     )
 }

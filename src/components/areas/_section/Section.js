@@ -1,7 +1,10 @@
 import { jsx as _jsx, Fragment as _Fragment } from "react/jsx-runtime";
-import styles from "./Section.module.scss";
+import styled from "styled-components";
+const Div = styled.div `
+   background: $partners-base-color-white;
+`;
 const Section = ({ children, marginBottom = 2, marginTop = 2, marginLeft = 2, marginRight = 2, backgroundColor = "white", width, padding, fluid = false, resizeAdjust = false, shadow = true, border = { size: 0, color: "black", radius: 24 } }) => {
-    return (_jsx(_Fragment, { children: _jsx("div", { className: styles["section-new"], style: {
+    return (_jsx(_Fragment, { children: _jsx(Div, { style: {
                 marginTop: `${marginTop}rem`,
                 marginRight: `${marginRight}rem`,
                 marginLeft: `${marginLeft}rem`,
