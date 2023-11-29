@@ -1,6 +1,6 @@
 {
     "name": "qc-comp-fr",
-    "version": "0.0.23",
+    "version": "0.0.24",
     "scripts": {
         "dev": "vite",
         "build": "tsc && vite build && npm version patch && npm pub",
