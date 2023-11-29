@@ -7,6 +7,8 @@
         "preview": "vite preview"
     },
     "dependencies": {
+        "@emotion/react": "^11.11.1",
+        "@emotion/styled": "^11.11.0",
         "@quero-delivery/quero-components-web": "^2.1.2",
         "@radix-ui/themes": "^2.0.1",
         "antd": "^5.11.5",
@@ -15,7 +17,7 @@
         "react": "^16.8.0 || 17.x",
         "react-dom": "^16.8.0 || 17.x",
         "react-dropzone": "^14.2.3",
-        "styled-components": "^6.0.8"
+        "styled-components": "^6.1.1"
     },
     "devDependencies": {
         "@babel/core": "^7.16.12",
@@ -34,8 +36,7 @@
     "peerDependencies": {
         "antd": "^5.11.5",
         "react": "^16.8.0 || 17.x",
-        "react-dom": "^16.8.0 || 17.x",
-        "styled-components": "^6.0.8"
+        "react-dom": "^16.8.0 || 17.x"
     },
     "files": [
         "dist"
